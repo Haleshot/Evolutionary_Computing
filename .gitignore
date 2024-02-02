@@ -125,7 +125,7 @@ celerybeat.pid
 env/
 venv/
 ENV/
-
+EC-ENV
 EC-env/pyvenv.cfg
 EC-env/etc/jupyter/nbconfig/notebook.d/pydeck.json
 EC-env/Scripts/activate
