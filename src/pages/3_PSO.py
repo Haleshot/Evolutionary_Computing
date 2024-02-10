@@ -1,8 +1,9 @@
 import streamlit as st
 
-
-st.write("# Particle Swarm Optimization (PSO) Implementation 🧑‍💻")
-
+st.set_page_config(
+    page_title="Particle Swarm Optimization (PSO) Implementation 🧑‍💻",
+    layout="wide"
+)
 
 st.markdown(
     """

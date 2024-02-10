@@ -1,8 +1,9 @@
 import streamlit as st
 
-
-st.write("# KNN Code Implementation 🧑‍💻")
-
+st.set_page_config(
+    page_title="KNN Code Implementation 🧑‍💻",
+    layout="wide"
+)
 
 st.markdown(
     """

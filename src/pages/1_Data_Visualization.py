@@ -4,7 +4,7 @@ import streamlit as st
 from pygwalker.api.streamlit import init_streamlit_comm, get_streamlit_html
 
 st.set_page_config(
-    page_title="Use Pygwalker In Streamlit",
+    page_title="Dataset Visualization",
     layout="wide"
 )
 
