@@ -183,3 +183,11 @@ cython_debug/
 #.idea/
 
 gw0.json
+
+.idea
+.idea/Evolutionary_Computing.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/.gitignore
