@@ -11,7 +11,7 @@ import matplotlib as mpl
 It is especially used for models where we have to predict the probability as an output.
 Since probability of anything exists only between the range of 0 and 1.
 
-The function is differentiable that means, we can find the slope of the sigmoid curve at any two points.
+The function is differentiable that means   , we can find the slope of the sigmoid curve at any two points.
 The function is monotonic but function’s derivative is not.
 """
 def sigmoid(Z):
