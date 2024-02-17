@@ -50,7 +50,7 @@ st.markdown(
     ## Source code explanation
     ```python
 
-    FILENAME = "glass+identification\glass.data" # Keep glass as default, but make it so that it depends on user selection from dataset dropdown
+    FILENAME = "glass+identification\glass.data" # TODO: Keep glass as default, but make it so that it depends on user selection from dataset dropdown
     ```
     ---
     The `run` function executes the algorithm for each test and training set pair. It initializes a Swarm object, initializes the swarm with the training dataset, optimizes the swarm, and calculates the accuracy of the optimized solution.
