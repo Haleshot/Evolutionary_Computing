@@ -55,11 +55,5 @@ st.markdown(
     print("Best Solution:", best_solution)
 
 
-
-
-
-
-
-
 """
 )
