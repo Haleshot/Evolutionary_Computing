@@ -15,7 +15,7 @@ option = st.selectbox(
    "Which dataset would you like to choose to visualize?",
    ("Contraceptive-method-choice", "Fertility", "Glass Identification", "Haberman-s-survival", "Iris", "Parkinsons", "Seeds", "Wine", "Zoo"),
    index=None,
-   placeholder="Select dataset...(Glass identification by default)",
+   placeholder="Select dataset",
 )
 
 def setPaths(option):
