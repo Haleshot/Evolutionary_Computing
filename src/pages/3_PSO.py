@@ -53,6 +53,7 @@ st.markdown(
 
     # Print the best solution found by the PSO algorithm
     print("Best Solution:", best_solution)
+    ```
 
 
 """
