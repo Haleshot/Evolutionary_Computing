@@ -118,7 +118,7 @@ st.markdown(
         - `c2` (float): Global acceleration coefficient. Defaults to `C2`.
         - `max_generation` (int): Maximum number of generations. Defaults to `MAX_GEN`.
     
-    - **Functionalities:**
+    - **Functionality:**
         - Randomly initializes weights and biases for the neural network's hidden and output layers within the range [-4, 4].
         - Stores the fitness value for each neural network.
         - Stores the output of the neural network in the reduced dimensionality partition space.
@@ -168,14 +168,15 @@ st.markdown(
     The `initialize_swarm` function initializes all individuals of the swarm with the provided data, initializing their weights and biases randomly, and identifying the best individuals locally and globally.
 
     - **Inputs:**
-            data (array): Input data for initializing individuals.
+    
+        - data (array): Input data for initializing individuals.
 
     - **Functionality:**
-                - Extracts input features and target labels from the data.
-                - Initializes individuals with random weights and biases.
-                - Initializes velocities of individuals.
-                - Initializes local best individuals as a deep copy of the individuals.
-                - Finds the global best individual.
+        - Extracts input features and target labels from the data.
+        - Initializes individuals with random weights and biases.
+        - Initializes velocities of individuals.
+        - Initializes local best individuals as a deep copy of the individuals.
+        - Finds the global best individual.
     
     - **Returns:**
                 None
@@ -227,12 +228,12 @@ st.markdown(
         None
 
     - **Functionality:**
-            - Optimizes the swarm by updating velocities and weights.
-            - Updates local best and global best individuals iteratively.
-            - Terminates when the maximum number of iterations is reached.
+        - Optimizes the swarm by updating velocities and weights.
+        - Updates local best and global best individuals iteratively.
+        - Terminates when the maximum number of iterations is reached.
     
     **Returns:**
-            Particle: The global best particle.
+        - Particle: The global best particle.
             
     ```python
     def optimize(self):
@@ -260,11 +261,11 @@ st.markdown(
         None
 
     - **Functionality:**
-            - Updates velocities of individuals based on personal and global bests.
-            - Caps the velocities at a maximum value.
-            - Updates weights of individuals.
-            - Calculates fitness of individuals.
-            - Updates local and global best individuals.
+        - Updates velocities of individuals based on personal and global bests.
+        - Caps the velocities at a maximum value.
+        - Updates weights of individuals.
+        - Calculates fitness of individuals.
+        - Updates local and global best individuals.
             
     ```python
     def update(self):
