@@ -164,7 +164,7 @@ st.markdown(
             # Target data         
             self.y = None 
             
-        ```            
+    ```            
         
     ---    
     The `initialize_swarm` function initializes all individuals of the swarm with the provided data, initializing their weights and biases randomly, and identifying the best individuals locally and globally.
@@ -221,7 +221,7 @@ st.markdown(
                 if self.global_best.fitness < i.fitness:
                     self.global_best = copy.deepcopy(i)
                     
-        ```            
+    ```            
                             
     ---
     The `optimize` function executes the optimization algorithm, iteratively updating the swarm's velocities and weights until the maximum number of iterations is reached, and returns the global best particle.
@@ -260,7 +260,7 @@ st.markdown(
             # Return the global best particle
             return self.global_best
             
-        ```    
+    ```    
         
     ---
     The `update` function updates the velocities and weights of the swarm, calculates the fitness, and updates local best and global best fitness.
@@ -329,7 +329,7 @@ st.markdown(
                     if self.group[i].fitness > self.global_best.fitness:
                         self.global_best = copy.deepcopy(self.group[i])
                         
-        ```                
+    ```                
 
     ---
     The `__init__` method initializes a Particle object with random weights and biases for a neural network. It accepts input data (`x`) and output labels (`y`) as arguments, both defaulting to empty lists.
