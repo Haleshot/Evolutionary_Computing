@@ -47,10 +47,11 @@ st.markdown(
     ## Source code explanation
     
     The `sigmoid` function applies the sigmoid function to the given input array or scalar.
-    **Inputs:**
+    
+    - **Inputs:**
         - X: Input data or values.
     
-    **Functionality:**
+    - **Functionality:**
         - Applies the hyperbolic tangent (tanh) activation function element-wise to the input array or scalar.
     
     ```python
@@ -66,10 +67,11 @@ st.markdown(
     ```
     ---
     The `tanh` function applies the hyperbolic tangent (tanh) function to the given input array or scalar.
-    **Inputs:**
+    
+    - **Inputs:**
         - X: Input data or values.
     
-    **Functionality:**
+    - **Functionality:**
         - Applies the hyperbolic tangent (tanh) activation function element-wise to the input array or scalar.
         
     ```python
@@ -87,10 +89,11 @@ st.markdown(
     
     ---
     The `relu` function applies the rectified linear unit (ReLU) function to the given input array or scalar.
-    **Inputs:**
+    
+    - **Inputs:**
         - X: Input data or values.
     
-    **Functionality:**
+    - **Functionality:**
         - Applies the rectified linear unit (ReLU) activation function element-wise to the input array or scalar.
         
     ```python
