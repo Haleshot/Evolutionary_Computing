@@ -56,16 +56,16 @@ st.markdown(
     
     ```python
     def sigmoid(Z):
-    '''
-    Calculates the sigmoid function for the given input.
+        '''
+        Calculates the sigmoid function for the given input.
 
-    Args:
-        Z (numpy.ndarray): Input to the sigmoid function.
-    
-    Returns:
-        numpy.ndarray: Output of the sigmoid function.
-    '''    
-    return 1 / (1 + np.exp(-Z))
+        Args:
+            Z (numpy.ndarray): Input to the sigmoid function.
+        
+        Returns:
+            numpy.ndarray: Output of the sigmoid function.
+        '''    
+        return 1 / (1 + np.exp(-Z))
     ```
     ---
     The `tanh` function applies the hyperbolic tangent (tanh) function to the given input array or scalar.
@@ -78,15 +78,15 @@ st.markdown(
         
     ```python
     def tanh(X):
-    '''Calculates the hyperbolic tangent (tanh) function for the given input.
+        '''Calculates the hyperbolic tangent (tanh) function for the given input.
 
-    Args:
-        X (numpy.ndarray): Input data or values.
-    
-    Returns:
-        numpy.ndarray: Output of the hyperbolic tangent function.
-    '''
-    return np.tanh(X)
+        Args:
+            X (numpy.ndarray): Input data or values.
+        
+        Returns:
+            numpy.ndarray: Output of the hyperbolic tangent function.
+        '''
+        return np.tanh(X)
     ```    
     
     ---
