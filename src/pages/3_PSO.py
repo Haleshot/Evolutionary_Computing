@@ -52,10 +52,11 @@ st.markdown(
         - X: Input data or values.
     
     - **Functionality:**
-        - Applies the hyperbolic tangent (tanh) activation function element-wise to the input array or scalar.
+        - Applies the sigmoid activation function element-wise to the input array or scalar.
     
     ```python
     def sigmoid(Z):
+    '''
     Calculates the sigmoid function for the given input.
 
     Args:
@@ -63,6 +64,7 @@ st.markdown(
     
     Returns:
         numpy.ndarray: Output of the sigmoid function.
+    '''    
     return 1 / (1 + np.exp(-Z))
     ```
     ---
@@ -239,6 +241,12 @@ st.markdown(
     def optimize(self):
         '''
         Run the optimization algorithm until the maximum number of iterations is reached.
+    
+        Args:
+            None
+    
+        Returns:
+            Particle: The global best particle after running the optimization algorithm.
         '''
         # Initialize iteration counter
         iteration = 0
