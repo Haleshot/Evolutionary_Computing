@@ -45,8 +45,293 @@ st.markdown(
     6. Retrieve the best solution found by the PSO algorithm from the swarm.
 
     ## Source code explanation
-    ---
+    
+    The `sigmoid` function applies the sigmoid function to the given input array or scalar.
+    
+    - **Inputs:**
+        - X: Input data or values.
+    
+    - **Functionality:**
+        - Applies the sigmoid activation function element-wise to the input array or scalar.
+    
+    ```python
+    def sigmoid(Z):
+    '''
+    Calculates the sigmoid function for the given input.
 
+    Args:
+        Z (numpy.ndarray): Input to the sigmoid function.
+    
+    Returns:
+        numpy.ndarray: Output of the sigmoid function.
+    '''    
+    return 1 / (1 + np.exp(-Z))
+    ```
+    ---
+    The `tanh` function applies the hyperbolic tangent (tanh) function to the given input array or scalar.
+    
+    - **Inputs:**
+        - X: Input data or values.
+    
+    - **Functionality:**
+        - Applies the hyperbolic tangent (tanh) activation function element-wise to the input array or scalar.
+        
+    ```python
+    def tanh(X):
+    '''Calculates the hyperbolic tangent (tanh) function for the given input.
+
+    Args:
+        X (numpy.ndarray): Input data or values.
+    
+    Returns:
+        numpy.ndarray: Output of the hyperbolic tangent function.
+    '''
+    return np.tanh(X)
+    ```    
+    
+    ---
+    The `relu` function applies the rectified linear unit (ReLU) function to the given input array or scalar.
+    
+    - **Inputs:**
+        - X: Input data or values.
+    
+    - **Functionality:**
+        - Applies the rectified linear unit (ReLU) activation function element-wise to the input array or scalar.
+        
+    ```python
+    def relu(X):
+    '''Calculates the rectified linear unit (ReLU) function for the given input.
+
+    Args:
+        X (numpy.ndarray): Input data or values.
+    
+    Returns:
+        numpy.ndarray: Output of the ReLU function.
+    '''
+    return np.maximum(0, X)
+    ```    
+    
+    ---    
+    The `swarm` class initializes a Swarm object with individuals initialized with the given data and provides functionalities for initializing and managing the swarm.
+    
+    - **Inputs:**
+        - `population_size` (int): Number of individuals in the swarm. Defaults to `POP_SIZE`.
+        - `c1` (float): Personal acceleration coefficient. Defaults to `C1`.
+        - `c2` (float): Global acceleration coefficient. Defaults to `C2`.
+        - `max_generation` (int): Maximum number of generations. Defaults to `MAX_GEN`.
+    
+    - **Functionality:**
+        - Randomly initializes weights and biases for the neural network's hidden and output layers within the range [-4, 4].
+        - Stores the fitness value for each neural network.
+        - Stores the output of the neural network in the reduced dimensionality partition space.
+        - Utilizes a discrimination weight (`alpha`) for training.
+        - If input data and output labels are provided, calculates the fraction of data elements belonging to each class (`weight_class`) and initializes fitness accordingly.
+        
+    ```python
+    class Swarm:
+    '''
+    Swarm class contains all the individuals.
+    '''
+
+    def __init__(self, size=POPULATION_SIZE, phi_1=C1, phi_2=C2, iter=MAX_GENERATION):
+        '''
+        Initializes a Swarm object with specified parameters.
+
+        Args:
+            size (int): Population size. Defaults to `POPULATION_SIZE`.
+            phi_1 (float): Personal acceleration coefficient. Defaults to `C1`.
+            phi_2 (float): Global acceleration coefficient. Defaults to `C2`.
+            iter (int): Maximum number of iterations. Defaults to `MAX_GENERATION`.
+
+        Returns:
+            None
+        '''
+        self.size = size
+        self.phi_p = phi_1
+        self.phi_g = phi_2
+        self.max_iter = iter
+        
+        # List to store velocities of individuals
+        self.velocity = []
+        # List to store individuals    
+        self.group = []
+        # Global best individual       
+        self.global_best = None
+        # List to store local best individuals  
+        self.local_best = []
+        # Input data  
+        self.x = None
+        # Target data         
+        self.y = None 
+        
+    ```            
+        
+    ---    
+    The `initialize_swarm` function initializes all individuals of the swarm with the provided data, initializing their weights and biases randomly, and identifying the best individuals locally and globally.
+
+    - **Inputs:**
+    
+        - data (array): Input data for initializing individuals.
+
+    - **Functionality:**
+        - Extracts input features and target labels from the data.
+        - Initializes individuals with random weights and biases.
+        - Initializes velocities of individuals.
+        - Initializes local best individuals as a deep copy of the individuals.
+        - Finds the global best individual.
+    
+    - **Returns:**
+                None
+                
+    ```python
+    def initialize_swarm(self, data):
+        '''
+        Initialize all the individuals with the given data.
+
+        Args:
+            data (array): Input data for initializing individuals.
+
+        Returns:
+            None
+        '''
+        # Extract input features and target labels from the data
+        x = data[:, 1:]
+        y = data[:, 0]
+
+        # Update the global variable NUMBER_OF_INPUT_NODES
+        global NUMBER_OF_INPUT_NODES
+        NUMBER_OF_INPUT_NODES = len(x[0])
+
+        # Store input features and target labels
+        self.x = x
+        self.y = y
+
+        # Initialize individuals with random weights and biases
+        self.group = [Particle(x, y) for _ in range(self.size)]
+        
+        # Initialize velocities of individuals
+        self.velocity = [Vel() for _ in range(self.size)]
+        
+        # Initialize local best individuals as a deep copy of the individuals
+        self.local_best = copy.deepcopy(self.group)
+
+        # Find the global best individual
+        self.global_best = self.local_best[0]
+        for i in self.local_best:
+            if self.global_best.fitness < i.fitness:
+                self.global_best = copy.deepcopy(i)
+                
+    ```            
+                            
+    ---
+    The `optimize` function executes the optimization algorithm, iteratively updating the swarm's velocities and weights until the maximum number of iterations is reached, and returns the global best particle.
+          
+    - **Inputs:**
+        None
+
+    - **Functionality:**
+        - Optimizes the swarm by updating velocities and weights.
+        - Updates local best and global best individuals iteratively.
+        - Terminates when the maximum number of iterations is reached.
+    
+    **Returns:**
+        - Particle: The global best particle.
+            
+    ```python
+    def optimize(self):
+        '''
+        Run the optimization algorithm until the maximum number of iterations is reached.
+    
+        Args:
+            None
+    
+        Returns:
+            Particle: The global best particle after running the optimization algorithm.
+        '''
+        # Initialize iteration counter
+        iteration = 0
+        
+        # Iterate until maximum iterations reached
+        while iteration < self.max_iter:
+            # Update swarm
+            self.update()
+            iteration += 1
+        
+        # Return the global best particle
+        return self.global_best
+        
+    ```    
+        
+    ---
+    The `update` function updates the velocities and weights of the swarm, calculates the fitness, and updates local best and global best fitness.
+
+    - **Inputs:**
+        None
+
+    - **Functionality:**
+        - Updates velocities of individuals based on personal and global bests.
+        - Caps the velocities at a maximum value.
+        - Updates weights of individuals.
+        - Calculates fitness of individuals.
+        - Updates local and global best individuals.
+            
+    ```python
+    def update(self):
+        '''
+        Executes an iteration of the optimization algorithm by updating the velocities and weights of the swarm, calculating the fitness, and updating local best and global best fitness.
+
+        Args:
+            None
+
+        Returns:
+            None
+        '''
+        # Generate random values for personal and global factors
+        r_p = random.random()
+        r_g = random.random()
+
+        # Update velocities and weights for each individual in the swarm
+        for i in range(self.size):
+            # Update velocities based on personal and global bests
+            self.velocity[i].w1 = self.velocity[i].w1 + self.phi_p * r_p * (self.local_best[i].w1 - self.group[i].w1) + self.phi_g * r_g * (self.global_best.w1 - self.group[i].w1)
+            self.velocity[i].w2 = self.velocity[i].w2 + self.phi_p * r_p * (self.local_best[i].w2 - self.group[i].w2) + self.phi_g * r_g * (self.global_best.w2 - self.group[i].w2)
+            self.velocity[i].b1 = self.velocity[i].b1 + self.phi_p * r_p * (self.local_best[i].b1 - self.group[i].b1) + self.phi_g * r_g * (self.global_best.b1 - self.group[i].b1)
+            self.velocity[i].b2 = self.velocity[i].b2 + self.phi_p * r_p * (self.local_best[i].b2 - self.group[i].b2) + self.phi_g * r_g * (self.global_best.b2 - self.group[i].b2)
+
+            # Cap velocities at maximum value
+            for j in range(len(self.velocity[i].w1)):
+                for k in range(len(self.velocity[i].w1[j])):
+                    self.velocity[i].w1[j][k] = min(max(self.velocity[i].w1[j][k], -VMAX), VMAX)
+            for j in range(len(self.velocity[i].w2)):
+                for k in range(len(self.velocity[i].w2[j])):
+                    self.velocity[i].w2[j][k] = min(max(self.velocity[i].w2[j][k], -VMAX), VMAX)
+            for j in range(len(self.velocity[i].b1)):
+                for k in range(len(self.velocity[i].b1[j])):
+                    self.velocity[i].b1[j][k] = min(max(self.velocity[i].b1[j][k], -VMAX), VMAX)
+            for j in range(len(self.velocity[i].b2)):
+                for k in range(len(self.velocity[i].b2[j])):
+                    self.velocity[i].b2[j][k] = min(max(self.velocity[i].b2[j][k], -VMAX), VMAX)
+
+            # Update weights based on velocities
+            self.group[i].w1 += self.velocity[i].w1
+            self.group[i].w2 += self.velocity[i].w2
+            self.group[i].b1 += self.velocity[i].b1
+            self.group[i].b2 += self.velocity[i].b2 
+            
+            # Calculate fitness for each individual
+            self.group[i].calc_fitness(self.x, self.y)
+
+        # Update local and global best individuals
+        for i in range(self.size):
+            if self.group[i].fitness > self.local_best[i].fitness:
+                self.local_best[i] = copy.deepcopy(self.group[i])
+
+                if self.group[i].fitness > self.global_best.fitness:
+                    self.global_best = copy.deepcopy(self.group[i])
+                    
+    ```                
+
+    ---
     The `__init__` method initializes a Particle object with random weights and biases for a neural network. It accepts input data (`x`) and output labels (`y`) as arguments, both defaulting to empty lists.
 
     - **Inputs:**
