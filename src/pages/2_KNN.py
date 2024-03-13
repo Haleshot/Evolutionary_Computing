@@ -29,14 +29,17 @@ st.markdown(
     5. **Evaluate Neural Network Function:**
        - Evaluates a neural network's performance using kNN classification on a test set. Returns accuracy and F1 score.
     
-    ## Usage
-    To use these functions:
-    1. Import the necessary libraries.
-    2. Define a target function to optimize (e.g., sigmoid).
-    3. Utilize functions for forward pass, kNN training, data visualization, and neural network evaluation.
+    The `sigmoid` function applies the sigmoid function to the given input array or scalar.
+    
+    - **Inputs:**
+        - X: Input data or values.
+    
+    - **Functionality:**
+        - Applies the sigmoid activation function element-wise to the input array or scalar.
     
     ```python
     def sigmoid(Z):
+    '''
     Calculates the sigmoid function for the given input.
 
     Args:
@@ -44,11 +47,23 @@ st.markdown(
     
     Returns:
         numpy.ndarray: Output of the sigmoid function.
+    '''    
     return 1 / (1 + np.exp(-Z))
     ```
     
+    ---
+    The `forward_pass` function executes a forward pass through a neural network model using the given input data, returning the output of the neural network.
+    - **Inputs:**
+        - nn_model (NeuralNetworkModel): The neural network model to perform the forward pass.
+        - data (numpy.ndarray): Input dataset for the neural network.
+
+    - **Functionality:**
+        - Performs a forward pass through the neural network model using the provided input data.
+        - Extracts features from the input dataset.
+        - Returns the output of the neural network after the forward pass.
     ```python
     def forward_pass(nn_model, data):
+    '''
     Performs a forward pass in a neural network and returns the output.
 
     Args:
@@ -57,13 +72,27 @@ st.markdown(
     
     Returns:
         numpy.ndarray: Output of the neural network after the forward pass.
+    '''    
         nn_model.forward(data[:, 1:])
         return nn_model.output
     ```
     
+    ---
+    The `train_classifier_knn` function trains a k-Nearest Neighbors (kNN) classifier using the provided training points and labels.
+    - **Inputs:**
+        - nn_model (NeuralNetworkModel): The neural network model to perform the forward pass.
+        - data (numpy.ndarray): Input dataset for the neural network.
+
+    - **Functionality:**
+        - Performs a forward pass through the neural network model using the provided input data.
+        - Extracts features from the input dataset.
+        - Returns the output of the neural network after the forward pass.
+    
+    - **Returns:**
+        - numpy.ndarray: Output of the neural network after the forward pass.
     ```python
-    # Usage example for neural network evaluation
     def train_classifier_knn(train_points, train_labels, k_neighbors=10):
+    '''
     Trains a k-Nearest Neighbors (kNN) classifier using the provided training points and labels.
     
     Args:
@@ -73,13 +102,28 @@ st.markdown(
     
     Returns:
         KNeighborsClassifier: The trained kNN classifier.
+    '''    
         knn_classifier = KNeighborsClassifier(n_neighbors=k_neighbors)
         knn_classifier.fit(train_points, train_labels)
-        return knn_classifier
+        return knn_classifier    
     ```
+    
+    ---
+    The `data_visualization` function performs visualization of data points along with their labels, using a scatter plot colored based on class labels, providing insights into the distribution and patterns present in the dataset.
+    - **Inputs:**
+        - data_points (numpy.ndarray): Data points to be visualized.
+        - data_labels (numpy.ndarray): Labels corresponding to each data point.
+        - N (int, optional): Number of classes for color mapping. Defaults to 4.
+
+    - **Functionality:**
+        - Evaluates the neural network model using k-Nearest Neighbors (kNN) and returns accuracy and F1 score.
+        - Visualizes the data points with scatter plot colored based on class labels.
+        - Uses a specified colormap ('jet') for color mapping.
+        - Generates a colorbar for visual reference of class boundaries.
     ```python
     def data_visualization(data_points, data_labels, N=4):
-        Evaluates the neural network model using k-Nearest Neighbors (kNN) and returns accuracy and F1 score.
+    '''
+    Evaluates the neural network model using k-Nearest Neighbors (kNN) and returns accuracy and F1 score.
 
     Args:
         nn_model (NeuralNetworkModel): The neural network model to be evaluated.
@@ -89,6 +133,7 @@ st.markdown(
 
     Returns:
         tuple: A tuple containing two elements - accuracy and F1 score.
+    '''    
         # Create a 1x1 subplot with a specified figure size
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
         # Define a color map using the 'jet' colormap
@@ -109,10 +154,25 @@ st.markdown(
         plt.show()
     ```
     
+    ---
+    The `evaluate_nn` function helps to evaluate the neural network model and it gives output as Accuracy and F1 score.
+    - **Inputs:**
+        - nn_model (NeuralNetworkModel): The neural network model to be evaluated.
+        - test_data (numpy.ndarray): Test dataset (including labels).
+        - train_data (numpy.ndarray): Training dataset (including labels).
+        - k_neighbors (int, optional): Number of neighbors for kNN. Defaults to 10.
+
+    - **Functionality:**
+        - Evaluates the neural network model using k-Nearest Neighbors (kNN) by performing forward passes on both training and test datasets.
+        - Trains a kNN classifier using the forward pass results of the training data.
+        - Predicts labels for the test data using the trained kNN classifier.
+        - Calculates accuracy and F1 score based on predicted labels and actual test labels.
+        
+    - **Returns:**
+        - tuple: A tuple containing two elements - accuracy and F1 score.
     ```python
-    # This function helps to evaluate the neural network model and it gives output as Accuracy and F1 score. 
-    # It assess the performance of a neural network by combining its output with k-Nearest Neighbors (kNN) classification on a test set and returning accuracy and F1 score.
     def evaluate_nn(nn_model, test_data, train_data, k_neighbors=10):
+    '''
     Evaluates the neural network model using k-Nearest Neighbors (kNN) and returns accuracy and F1 score.
 
     Args:
@@ -123,6 +183,7 @@ st.markdown(
     
     Returns:
         tuple: A tuple containing two elements - accuracy and F1 score.
+    '''    
         # Perform a forward pass on the training data using the neural network
         train_points = forward_pass(nn_model, train_data)
         # Perform a forward pass on the test data using the neural network
