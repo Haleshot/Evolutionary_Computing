@@ -19,20 +19,30 @@ option = st.selectbox(
 )
 
 def setPaths(option):
+    '''
+    Sets the file paths for different dataset options.
+
+    Args:
+        option (str): The selected dataset option.
+
+    Returns:
+        str: The file path corresponding to the selected dataset option.
+    '''
     d = {
-        "Contraceptive-method-choice" : "dataset/contraceptive+method+choice/cmc.data", 
-        "Fertility" : "dataset/fertility/fertility_Diagnosis.txt",         
-        "Glass Identification" : "dataset/glass+identification/glass.data", 
-        "Haberman-s-survival" : "dataset/haberman+s+survival/haberman.data", 
-        "Iris" : "dataset/iris/iris.data", 
-        "Parkinsons" : "dataset/parkinsons/parkinsons.data", 
-        "Seeds" : "dataset/seeds/seeds_dataset.txt", 
-        "Wine" : "dataset/wine/wine.data", 
-        "Zoo" : "dataset/zoo/zoo.data"
+        "Contraceptive-method-choice": "dataset/contraceptive+method+choice/cmc.data", 
+        "Fertility": "dataset/fertility/fertility_Diagnosis.txt",         
+        "Glass Identification": "dataset/glass+identification/glass.data", 
+        "Haberman-s-survival": "dataset/haberman+s+survival/haberman.data", 
+        "Iris": "dataset/iris/iris.data", 
+        "Parkinsons": "dataset/parkinsons/parkinsons.data", 
+        "Seeds": "dataset/seeds/seeds_dataset.txt", 
+        "Wine": "dataset/wine/wine.data", 
+        "Zoo": "dataset/zoo/zoo.data"
     }
     for key, value in d.items():
         if option == key:
             return value
+
         
 # print(option)
 filename = setPaths(option)
