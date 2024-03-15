@@ -39,17 +39,17 @@ st.markdown(
     
     ```python
     def sigmoid(Z):
-    '''
-    Calculates the sigmoid function for the given input.
+        '''
+        Calculates the sigmoid function for the given input.
 
-    Args:
-        Z (numpy.ndarray): Input to the sigmoid function.
-    
-    Returns:
-        numpy.ndarray: Output of the sigmoid function.
-    '''    
-    return 1 / (1 + np.exp(-Z))
-    ```
+        Args:
+            Z (numpy.ndarray): Input to the sigmoid function.
+        
+        Returns:
+            numpy.ndarray: Output of the sigmoid function.
+        '''    
+        return 1 / (1 + np.exp(-Z))
+        ```
     
     ---
     The `forward_pass` function executes a forward pass through a neural network model using the given input data, returning the output of the neural network.
