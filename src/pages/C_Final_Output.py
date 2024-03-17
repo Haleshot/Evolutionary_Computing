@@ -1,5 +1,9 @@
 # import libraries
 import streamlit as st
+st.set_page_config(
+    page_title="Final Code Output 🧑‍💻",
+    layout="wide"
+)
 
 
 
@@ -261,7 +265,7 @@ import random
 # from .3_PSO import Swarm # TODO: Custom library to be defined
 # from .2_KNN import accuracy # TODO: Custom library to be defined
 from pages.B_PSO import Swarm
-from A_KNN import accuracy
+from pages.A_KNN import accuracy
 
 
 

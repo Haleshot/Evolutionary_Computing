@@ -667,32 +667,77 @@ from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
 
+# # Define the number of classes in the data
+# CLASS_NUM = int(input("Enter number of classes"))
+
+# # Define the discrimination weight
+# ALPHA = float(input("Enter alpha"))
+# # print("alpha ", ALPHA)
+
+# # Define the number of nearest neighbors
+# NEAREST_NEIGHBOURS = 10
+
+# # Number of input nodes should be equal to the number of features
+# NUMBER_OF_INPUT_NODES = 9
+# NUMBER_OF_HIDDEN_NODES = 5
+# # Number of output nodes should be equal to dimensions of partition space
+# NUMBER_OF_OUTPUT_NODES = int(input("Enter number of output nodes"))
+
+# # Maximum number of iterations
+# MAX_GENERATION = 100 
+# # Number of individuals
+# POPULATION_SIZE = 10
+# # Maximum velocity
+# VMAX = 0.4
+
+# # Constants related to PSO
+# C1 = 1.8
+# C2 = 1.8
+
+
+def get_valid_input(prompt, input_type):
+    user_input = st.text_input(prompt)
+    while True:
+        try:
+            value = input_type(user_input)
+            return value
+        except ValueError:
+            st.warning("Please enter a valid input.")
+            user_input = st.text_input(prompt)
+
 # Define the number of classes in the data
-CLASS_NUM = int(input("Enter number of classes"))
+CLASS_NUM = get_valid_input("Enter number of classes", int)
 
 # Define the discrimination weight
-ALPHA = float(input("Enter alpha"))
-# print("alpha ", ALPHA)
+ALPHA = get_valid_input("Enter alpha", float)
 
 # Define the number of nearest neighbors
-NEAREST_NEIGHBOURS = 10
+NEAREST_NEIGHBOURS = get_valid_input("Enter number of nearest neighbors", int)
 
 # Number of input nodes should be equal to the number of features
-NUMBER_OF_INPUT_NODES = 9
-NUMBER_OF_HIDDEN_NODES = 5
+NUMBER_OF_INPUT_NODES = get_valid_input("Enter number of input nodes", int)
+
+# Number of hidden nodes
+NUMBER_OF_HIDDEN_NODES = get_valid_input("Enter number of hidden nodes", int)
+
 # Number of output nodes should be equal to dimensions of partition space
-NUMBER_OF_OUTPUT_NODES = int(input("Enter number of output nodes"))
+NUMBER_OF_OUTPUT_NODES = get_valid_input("Enter number of output nodes", int)
 
 # Maximum number of iterations
-MAX_GENERATION = 100 
+MAX_GENERATION = get_valid_input("Enter maximum number of generations", int)
+
 # Number of individuals
-POPULATION_SIZE = 10
+POPULATION_SIZE = get_valid_input("Enter population size", int)
+
 # Maximum velocity
-VMAX = 0.4
+VMAX = get_valid_input("Enter maximum velocity", float)
 
 # Constants related to PSO
-C1 = 1.8
-C2 = 1.8
+C1 = get_valid_input("Enter C1", float)
+C2 = get_valid_input("Enter C2", float)
+
+
+
 
 
 def sigmoid(Z):
