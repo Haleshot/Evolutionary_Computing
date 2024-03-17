@@ -28,6 +28,27 @@ st.markdown(
     
     5. **Evaluate Neural Network Function:**
        - Evaluates a neural network's performance using kNN classification on a test set. Returns accuracy and F1 score.
+       
+    ## Usage
+    To utilize the k-Nearest Neighbor (kNN) implementation for classification tasks, follow these steps:
+
+    1. Import the necessary libraries and classes from the provided Python file into your project.
+    ```python
+    import numpy as np
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn import metrics
+    import matplotlib.pyplot as plt
+    ```
+
+    2. Prepare dataset for classification, ensuring properl formatted with features and corresponding labels.
+
+    3. Train kNN classifier by initializing an instance of the KNeighborsClassifier class and specifying parameters.
+
+    4. Fit the classifier to training data using the `fit` method.
+
+    5. Predict labels for new data points using the predict method.
+
+    6. Evaluate the performance of classifier using metrics such as accuracy and F1 score.
     
     The `sigmoid` function applies the sigmoid function to the given input array or scalar.
     
