@@ -1,10 +1,5 @@
 # import libraries
 import streamlit as st
-import numpy as np
-from sklearn.model_selection import KFold
-import random
-# from .3_PSO import Swarm
-# from .2_KNN import accuracy
 
 
 
