@@ -167,3 +167,182 @@ st.markdown(
         """)
 
 
+
+
+
+
+
+
+
+############################################## CODE IMPLEMENTATION ##############################################################
+
+
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import metrics
+import matplotlib.pyplot as plt
+
+
+
+def sigmoid(Z):
+    '''
+    Calculates the sigmoid function for the given input.
+
+    Args:
+        Z (numpy.ndarray): Input to the sigmoid function.
+
+    Returns:
+        numpy.ndarray: Output of the sigmoid function.
+    '''    
+    return 1 / (1 + np.exp(-Z))
+
+
+# def compute_accuracy_with_knn_partitioning(neural_network, test_data, train_data):
+#     '''
+#     Compute the accuracy of a neural network classifier using KNN partitioning.
+
+#     Args:
+#         neural_network (NeuralNetwork): The trained neural network.
+#         test_data (numpy.ndarray): Test data with labels.
+#         train_data (numpy.ndarray): Training data with labels.
+
+#     Returns:
+#         tuple: A tuple containing accuracy and F1 score.
+#     '''
+
+#     # Perform forward pass for training data
+#     neural_network.forward(train_data[:, 1:])  
+#     # Get output from neural network
+#     train_points = neural_network.output  
+
+#     # Perform forward pass for test data
+#     # Exclude labels from input
+#     neural_network.forward(test_data[:, 1:])  
+#     # Get output from neural network
+#     test_points = neural_network.output  
+
+#     # Fit KNN classifier on training data
+#     # Create KNN classifier
+#     knn_classifier = KNeighborsClassifier(n_neighbors=10)  
+#     # Train KNN classifier on training data
+#     knn_classifier.fit(train_points, train_data[:, 0])  
+
+#     # Predict labels for test data using trained KNN classifier
+#     predicted_labels = knn_classifier.predict(test_points)  
+
+#     # Calculate accuracy and F1 score
+#     accuracy = metrics.accuracy_score(test_data[:, 0], predicted_labels)  
+#     # Calculate F1 score
+#     f1_score = metrics.f1_score(test_data[:, 0], predicted_labels, average='macro', labels=np.unique(predicted_labels))  
+
+#     # Visualize the data with a scatter plot
+#     # Get the number of unique classes
+#     num_classes = len(np.unique(train_data[:, 0]))  
+#     # Create figure and axis for plotting
+#     fig, ax = plt.subplots(1, 1, figsize=(6, 6))  
+#     # x-coordinates for scatter plot
+#     x = train_points[:, 0] 
+#     # y-coordinates for scatter plot 
+#     y = train_points[:, 1]  
+#     # Labels for coloring points
+#     labels = train_data[:, 0]  
+
+#     # Choose colormap
+#     colormap = plt.cm.jet
+#     # Create list of colors from colormap 
+#     cmap_list = [colormap(i) for i in range(colormap.N)] 
+#     # Create custom colormap 
+#     colormap = colormap.from_list('Custom cmap', cmap_list, colormap.N)  
+
+#     # Define boundaries for colormap
+#     bounds = np.linspace(0, num_classes, num_classes + 1)  
+#     # Normalize colormap
+#     norm = plt.Normalize(0, num_classes)  
+
+#     print("IN KNN module")
+
+#     # Create scatter plot
+#     scatter = ax.scatter(x, y, c=labels, cmap=colormap, norm=norm) 
+#     # Create colorbar 
+#     colorbar = plt.colorbar(scatter, spacing='proportional', ticks=bounds) 
+#     # Set label for colorbar 
+#     colorbar.set_label('Custom colorbar')  
+#     plt.show()  
+
+#     # Return accuracy and F1 score
+#     return accuracy, f1_score
+
+def compute_accuracy_with_knn_partitioning(neural_network, test_data, train_data):
+    '''
+    Compute the accuracy of a neural network classifier using KNN partitioning.
+
+    Args:
+        neural_network (NeuralNetwork): The trained neural network.
+        test_data (numpy.ndarray): Test data with labels.
+        train_data (numpy.ndarray): Training data with labels.
+
+    Returns:
+        tuple: A tuple containing accuracy and F1 score.
+    '''
+
+    # Perform forward pass for training data
+    neural_network.forward(train_data[:, 1:])  
+    # Get output from neural network
+    train_points = neural_network.output  
+
+    # Perform forward pass for test data
+    # Exclude labels from input
+    neural_network.forward(test_data[:, 1:])  
+    # Get output from neural network
+    test_points = neural_network.output  
+
+    # Fit KNN classifier on training data
+    # Create KNN classifier
+    knn_classifier = KNeighborsClassifier(n_neighbors=10)  
+    # Train KNN classifier on training data
+    knn_classifier.fit(train_points, train_data[:, 0])  
+
+    # Predict labels for test data using trained KNN classifier
+    predicted_labels = knn_classifier.predict(test_points)  
+
+    # Calculate accuracy and F1 score
+    accuracy = metrics.accuracy_score(test_data[:, 0], predicted_labels)  
+    # Calculate F1 score
+    f1_score = metrics.f1_score(test_data[:, 0], predicted_labels, average='macro', labels=np.unique(predicted_labels))  
+
+    # Visualize the data with a scatter plot
+    # Get the number of unique classes
+    num_classes = len(np.unique(train_data[:, 0]))  
+    # Create figure and axis for plotting
+    fig, ax = plt.subplots(1, 1, figsize=(6, 6))  
+    # x-coordinates for scatter plot
+    x = train_points[:, 0] 
+    # y-coordinates for scatter plot 
+    y = train_points[:, 1]  
+    # Labels for coloring points
+    labels = train_data[:, 0]  
+
+    # Choose colormap
+    colormap = plt.cm.jet
+    # Create list of colors from colormap 
+    cmap_list = [colormap(i) for i in range(colormap.N)] 
+    # Create custom colormap 
+    colormap = colormap.from_list('Custom cmap', cmap_list, colormap.N)  
+
+    # Define boundaries for colormap
+    bounds = np.linspace(0, num_classes, num_classes + 1)  
+    # Normalize colormap
+    norm = plt.Normalize(0, num_classes)  
+
+    # Create scatter plot
+    scatter = ax.scatter(x, y, c=labels, cmap=colormap, norm=norm) 
+    # Create colorbar 
+    colorbar = plt.colorbar(scatter, spacing='proportional', ticks=bounds) 
+    # Set label for colorbar 
+    colorbar.set_label('Custom colorbar')  
+    
+    # Display the plot in Streamlit
+    st.pyplot(fig)
+
+    # Return accuracy and F1 score
+    return accuracy, f1_score

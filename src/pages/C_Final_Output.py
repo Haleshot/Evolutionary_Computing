@@ -265,12 +265,12 @@ import random
 # from .3_PSO import Swarm # TODO: Custom library to be defined
 # from .2_KNN import accuracy # TODO: Custom library to be defined
 from pages.B_PSO import Swarm
-from pages.A_KNN import accuracy
+from pages.A_KNN import compute_accuracy_with_knn_partitioning
 
 
 
 
-FILENAME = "glass+identification\glass.data" # TODO: Keep glass as default, but make it so that it depends on user selection from dataset dropdown
+FILENAME = "dataset/glass+identification/glass.data" # TODO: Keep glass as default, but make it so that it depends on user selection from dataset dropdown
 
 
 
@@ -292,10 +292,13 @@ def run(test, train):
     s.initialize_swarm(train)
 
     # Optimize the swarm
-    ans = s.omptimize()  # Typo: should be optimize() instead of omptimize()
+    ans = s.optimize()  # Typo: should be optimize() instead of omptimize()
 
     # Calculate the accuracy of the optimized solution
-    return accuracy(ans, test, train)
+
+    print("In run function of Final\n\n")
+
+    return compute_accuracy_with_knn_partitioning(ans, test, train)
 
 
 
@@ -322,7 +325,8 @@ def normalize(dataset):
 
     # Set the class_flag to -1 if the class label is the last column
     # Set class_flag to 0 if class label is the first column
-    class_flag = int(input("Enter class flag"))
+    # class_flag = int(input("Enter class flag"))
+    class_flag = -1
 
     # Remove the class column and add back the unnormalized class label
     # Class labels should not be normalized
@@ -337,7 +341,11 @@ def normalize(dataset):
 
     # Concatenate the class labels with the normalized features along the column axis
     out = np.concatenate((dataset, res), axis=1)
-
+    
+    
+    print("In normalize function of Final\n\n")
+    
+    
     return out
 
 
@@ -363,6 +371,11 @@ def loadfile(filename):
     # Normalize the dataset using the normalize function
     dataset = normalize(dataset)
 
+
+
+    print("In loadfile function of Final\n\n")
+
+
     return dataset
 
 
@@ -384,6 +397,10 @@ def kfold(dataset):
     # Lists to store accuracy and F-score for each fold
     avg_acc = []
     avg_fscr = []
+
+    print("In kfold function of Final\n\n")
+
+
 
     # Iterate over each fold
     for train_ind, test_ind in kf.split(dataset):

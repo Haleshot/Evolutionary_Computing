@@ -660,6 +660,10 @@ st.markdown(
 
 
 ############################################## CODE IMPLEMENTATION ##############################################################
+
+
+
+
 import copy 
 import random
 import numpy as np
@@ -850,6 +854,47 @@ class Swarm:
         for i in self.local_best:
             if self.global_best.fitness < i.fitness:
                 self.global_best = copy.deepcopy(i)
+
+    # def initialize_swarm(self, data):
+    #     '''
+    #     Initialize all the individuals with the given data.
+
+    #     Args:
+    #         data (array): Input data for initializing individuals.
+
+    #     Returns:
+    #         None
+    #     '''
+    #     # Extract input features and target labels from the data
+    #     x = data[:, 1:]
+    #     y = data[:, 0]
+
+    #     # Update the global variable NUMBER_OF_INPUT_NODES
+    #     global NUMBER_OF_INPUT_NODES
+    #     NUMBER_OF_INPUT_NODES = len(x[0])
+
+    #     # Store input features and target labels
+    #     self.x = x
+    #     self.y = y
+
+    #     # Ensure that the data is not empty before initializing the swarm
+    #     if len(data) > 0:
+    #         # Initialize individuals with random weights and biases
+    #         self.group = [Particle(x, y) for _ in range(self.size)]
+
+    #         # Initialize velocities of individuals
+    #         self.velocity = [Vel() for _ in range(self.size)]
+
+    #         # Initialize local best individuals as a deep copy of the individuals
+    #         self.local_best = copy.deepcopy(self.group)
+
+    #         # Find the global best individual
+    #         self.global_best = self.local_best[0]
+    #         for i in self.local_best:
+    #             if self.global_best.fitness < i.fitness:
+    #                 self.global_best = copy.deepcopy(i)
+    #     else:
+    #         raise ValueError("Empty training data provided. Unable to initialize swarm.")
     
     def optimize(self):
         '''
@@ -932,46 +977,106 @@ class Particle:
     Each individual represents a neural network. We use PSO to train the weights for the neural network.
     '''
 
-    def __init__(self, x=[], y=[]):
+    # def __init__(self, x=[], y=[]):
+    #     '''
+    #     Initializes a Particle object with random weights and biases.
+
+    #     Args:
+    #         x (list): Input data for the neural network. Defaults to an empty list.
+    #         y (list): Output labels for the input data. Defaults to an empty list.
+    #     '''
+    #     # Initial weights are set between -4 and +4
+    #     # Refer R. Eberhart and J. Kennedy, A new optimizer using particle swarm theory
+    #     weight_initial_min = -4
+    #     weight_initial_max = 4
+
+    #     # Initialize weights for the hidden layer
+    #     self.w1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_INPUT_NODES, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
+
+    #     # Initialize weights for the output layer
+    #     self.w2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_HIDDEN_NODES, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
+
+    #     # Initialize biases for the hidden layer
+    #     self.b1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
+
+    #     # Initialize biases for the output layer
+    #     self.b2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
+
+    #     # Stores fitness value for each neural network
+    #     self.fitness = None
+
+    #     # Stores output of the neural network in the reduced dimensionality partition space
+    #     self.output = None
+
+    #     # Discrimination weight
+    #     self.alpha = ALPHA
+
+
+    #     print(x, "\n\n", y)
+
+    #     # if x and y:
+    #     if x!=[] and y!=[]:
+    #         # Weight class contains the fraction of the data elements belonging to each class of the dataset
+    #         self.weight_class = self.frac_class_wt(y)
+
+    #         # Initialize fitness
+    #         self.calc_fitness(x, y)
+
+
+    def __init__(self, x=None, y=None):
         '''
         Initializes a Particle object with random weights and biases.
 
         Args:
-            x (list): Input data for the neural network. Defaults to an empty list.
-            y (list): Output labels for the input data. Defaults to an empty list.
+            x (list): Input data for the neural network. Defaults to None.
+            y (list): Output labels for the input data. Defaults to None.
         '''
-        # Initial weights are set between -4 and +4
-        # Refer R. Eberhart and J. Kennedy, A new optimizer using particle swarm theory
-        weight_initial_min = -4
-        weight_initial_max = 4
+        if x is not None and y is not None:
+            # Initial weights are set between -4 and +4
+            # Refer R. Eberhart and J. Kennedy, A new optimizer using particle swarm theory
+            weight_initial_min = -4
+            weight_initial_max = 4
 
-        # Initialize weights for the hidden layer
-        self.w1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_INPUT_NODES, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
+            # Initialize weights for the hidden layer
+            self.w1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_INPUT_NODES, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
 
-        # Initialize weights for the output layer
-        self.w2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_HIDDEN_NODES, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
+            # Initialize weights for the output layer
+            self.w2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(NUMBER_OF_HIDDEN_NODES, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
 
-        # Initialize biases for the hidden layer
-        self.b1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
+            # Initialize biases for the hidden layer
+            self.b1 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_HIDDEN_NODES)) + weight_initial_min
 
-        # Initialize biases for the output layer
-        self.b2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
+            # Initialize biases for the output layer
+            self.b2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
 
-        # Stores fitness value for each neural network
-        self.fitness = None
+            # Stores fitness value for each neural network
+            self.fitness = None
 
-        # Stores output of the neural network in the reduced dimensionality partition space
-        self.output = None
+            # Stores output of the neural network in the reduced dimensionality partition space
+            self.output = None
 
-        # Discrimination weight
-        self.alpha = ALPHA
+            # Discrimination weight
+            self.alpha = ALPHA
 
-        if x and y:
+            # print(x, "\n\n", y)
+
+            # if x and y:
             # Weight class contains the fraction of the data elements belonging to each class of the dataset
             self.weight_class = self.frac_class_wt(y)
 
             # Initialize fitness
             self.calc_fitness(x, y)
+        else:
+            # Handle the case when x and y are empty lists
+            # Initialize other attributes with default values
+            self.w1 = None
+            self.w2 = None
+            self.b1 = None
+            self.b2 = None
+            self.fitness = None
+            self.output = None
+            self.alpha = ALPHA
+            self.weight_class = None
 
 
 
