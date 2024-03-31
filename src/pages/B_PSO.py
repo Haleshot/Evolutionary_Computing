@@ -1049,7 +1049,7 @@ class Particle:
             # Initialize biases for the output layer
             self.b2 = (weight_initial_max - weight_initial_min) * np.random.random_sample(size=(1, NUMBER_OF_OUTPUT_NODES)) + weight_initial_min
 
-            # Stores fitness value for each neural network
+            # Stores fitness value for each neural ne twork
             self.fitness = None
 
             # Stores output of the neural network in the reduced dimensionality partition space
