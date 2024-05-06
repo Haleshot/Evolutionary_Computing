@@ -277,7 +277,7 @@ def compute_accuracy_with_knn_partitioning(neural_network, test_data, train_data
     Compute the accuracy of a neural network classifier using KNN partitioning.
 
     Args:
-        neural_network (NeuralNetwork): The trained neural network.
+        neural_network (Neural Network): The trained neural network.
         test_data (numpy.ndarray): Test data with labels.
         train_data (numpy.ndarray): Training data with labels.
 
