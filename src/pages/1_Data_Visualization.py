@@ -20,7 +20,7 @@ option = st.selectbox(
 
 def setPaths(option):
     '''
-    Sets the file paths for different dataset options.
+    Sets the file paths for different datasets provided.
 
     Args:
         option (str): The selected dataset option.
